@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)  # Pour permettre les requêtes cross-origin
+# Initialisation de l'application Flask
+app = Flask(__name__, static_folder='../front', static_url_path='')  # Configure le dossier front
+CORS(app)  # Permettre les requêtes cross-origin
 
 # Configuration de la base de données
 db_config = {
@@ -26,6 +27,16 @@ def get_db_connection():
         cursor_factory=RealDictCursor
     )
     return conn
+
+# Route pour servir le fichier `index.html` à la racine
+@app.route('/')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
+
+# Route pour servir d'autres fichiers statiques (CSS, JS, images, etc.)
+@app.route('/<path:path>')
+def serve_static_files(path):
+    return send_from_directory(app.static_folder, path)
 
 # Route pour récupérer toutes les entités de solidarité
 @app.route('/entites', methods=['GET'])
