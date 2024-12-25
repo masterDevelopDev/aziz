@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-import mysql.connector
+import psycopg2
+from psycopg2.extras import RealDictCursor
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -7,15 +8,23 @@ CORS(app)  # Pour permettre les requêtes cross-origin
 
 # Configuration de la base de données
 db_config = {
-    'host': 'dpg-ctm5t2a3esus739ncb1g-a',
+    'host': 'dpg-ctm5t2a3esus739ncb1g-a.oregon-postgres.render.com',
+    'database': 'solidarite',
     'user': 'solidarite_user',
-    'password': 'i8fkp1uF6C8XUbnWLDcoVT637n1wS5kn',  # Remplacez par votre mot de passe MySQL
-    'database': 'solidarite'
+    'password': 'i8fkp1uF6C8XUbnWLDcoVT637n1wS5kn',
+    'port': 5432
 }
 
 # Connexion à la base de données
 def get_db_connection():
-    conn = mysql.connector.connect(**db_config)
+    conn = psycopg2.connect(
+        host=db_config['host'],
+        database=db_config['database'],
+        user=db_config['user'],
+        password=db_config['password'],
+        port=db_config['port'],
+        cursor_factory=RealDictCursor
+    )
     return conn
 
 # Route pour récupérer toutes les entités de solidarité
