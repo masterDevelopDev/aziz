@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://aziz-icxm.onrender.com.onrender.com'; 
+const API_BASE_URL = 'https://aziz-icxm.onrender.com'; 
 
 // Fonction pour afficher uniquement la section sélectionnée
 function showSection(sectionId) {
