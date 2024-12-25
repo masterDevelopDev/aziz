@@ -1,0 +1,206 @@
+/* Définition des variables CSS pour une maintenance facile */
+:root {
+  --primary-blue: #0d6efd;
+  --primary-red: #ff6f61;
+  --primary-green: #6bc17a;
+  --primary-yellow: #fbbd08;
+  --primary-gray: #555555;
+  --secondary-gray: #333333;
+  --background-light: #f8f9fa;
+  --white: #ffffff;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+}
+
+/* Style global */
+body {
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 60px; /* Pour éviter que le contenu soit masqué par le menu en bas */
+  background-color: var(--background-light); /* Couleur de fond douce */
+}
+
+/* Section principale */
+#welcome-section {
+  padding: 20px 15px;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-light);
+  margin-bottom: 20px;
+}
+
+/* Titre de bienvenue */
+.welcome-title {
+  font-size: 26px;
+  color: var(--primary-blue);
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Texte descriptif */
+.welcome-text {
+  font-size: 16px;
+  color: var(--secondary-gray);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+/* Liste des fonctionnalités */
+.welcome-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  color: var(--primary-gray);
+}
+
+.welcome-list li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* Icône de la liste */
+.list-icon {
+  color: var(--primary-blue);
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+/* Texte de la liste */
+.list-text {
+  color: var(--secondary-gray);
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* Barre de navigation en haut */
+nav.navbar {
+  background-color: var(--white);
+  box-shadow: 0 2px 5px var(--shadow-light);
+}
+
+nav.navbar .logo {
+  max-width: 100%;
+  height: 80px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Menu de navigation en bas */
+nav.fixed-bottom {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  background-color: var(--white);
+  box-shadow: 0 -2px 5px var(--shadow-light);
+}
+
+/* Style général pour chaque bouton du menu */
+nav.fixed-bottom .nav-link {
+  font-size: 13px;
+  color: var(--white);
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 10px;
+  text-decoration: none;
+  width: 70px;
+  height: 60px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+/* Couleurs spécifiques pour chaque bouton */
+nav.fixed-bottom .nav-link:nth-child(1) {
+  background-color: var(--primary-red);
+}
+
+nav.fixed-bottom .nav-link:nth-child(2) {
+  background-color: var(--primary-green);
+}
+
+nav.fixed-bottom .nav-link:nth-child(3) {
+  background-color: var(--primary-yellow);
+}
+
+nav.fixed-bottom .nav-link:nth-child(4) {
+  background-color: #4682b4; /* Bleu acier */
+}
+
+/* Icônes du menu */
+nav.fixed-bottom .nav-link i {
+  font-size: 22px;
+  color: var(--white);
+}
+
+/* Texte des boutons */
+nav.fixed-bottom .nav-link {
+  color: var(--white) !important;
+  font-weight: bold;
+}
+
+/* Survol et état actif */
+nav.fixed-bottom .nav-link:hover,
+nav.fixed-bottom .nav-link.active {
+  filter: brightness(0.9);
+  transform: scale(1.08);
+}
+
+/* Modale */
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px var(--shadow-dark);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--background-light);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--background-light);
+}
+
+/* Bouton fermer */
+.modal .btn-close {
+  background-color: transparent;
+  border: none;
+}
+
+/* Champ formulaire */
+.form-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary-gray);
+}
+
+.form-control {
+  border-radius: 8px;
+}
+
+/* Bouton de soumission */
+button[type="submit"] {
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: var(--white);
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Media Query pour appareils larges */
+@media (min-width: 768px) {
+  nav.fixed-bottom .nav-link {
+    width: 100px;
+    height: 80px;
+  }
+}

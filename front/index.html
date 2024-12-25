@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التعاضدية العامة للتربية الوطنية</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar en haut -->
+  <nav class="navbar navbar-light bg-white shadow">
+    <div class="container-fluid text-center">
+      <img src="logo.png" alt="Logo" class="logo">
+    </div>
+  </nav>
+
+  <!-- Contenu principal -->
+  <main class="container mt-5">
+    <!-- Section d'accueil -->
+    <div id="welcome-section" class="text-center py-4">
+      <h1 class="welcome-title">مرحبا بكم في منصة التعاضدية</h1>
+      <p class="welcome-text mb-4">إدارة الأعضاء، الكيانات وبطاقات الانخراط .</p>
+      <ul class="welcome-list text-center mx-auto">
+        <li>
+          <span class="list-icon">✔</span>
+          <span class="list-text">الأعضاء: استعراض وإدارة بيانات الأعضاء .</span>
+        </li>
+        <li>
+          <span class="list-icon">✔</span>
+          <span class="list-text">الكيانات: تنظيم وإدارة الكيانات المختلفة.</span>
+        </li>
+        <li>
+          <span class="list-icon">✔</span>
+          <span class="list-text">بطاقات الانخراط: تتبع حالة بطاقات الانخراط.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Section des membres -->
+    <div id="membres-section">
+      <h2 class="text-primary mb-4">لائحة الأعضاء</h2>
+      <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addMembreModal">إضافة عضو جديد</button>
+      <div id="membres-list" class="row gy-3">
+        <!-- Membres insérés dynamiquement ici -->
+      </div>
+    </div>
+
+    <!-- Modale pour ajouter un membre -->
+    <div class="modal fade" id="addMembreModal" tabindex="-1" aria-labelledby="addMembreModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addMembreModalLabel">إضافة عضو جديد</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addMembreForm">
+              <div class="mb-3">
+                <label for="nom" class="form-label">الاسم</label>
+                <input type="text" class="form-control" id="nom" name="nom" required pattern="^[\u0621-\u064A\w\s]+$" title="Veuillez entrer un nom valide.">
+              </div>
+              <div class="mb-3">
+                <label for="profession" class="form-label">المهنة</label>
+                <input type="text" class="form-control" id="profession" name="profession" required>
+              </div>
+              <div class="mb-3">
+                <label for="age" class="form-label">العمر</label>
+                <input type="number" class="form-control" id="age" name="age" required min="18" max="99" title="Âge entre 18 et 99 ans.">
+              </div>
+              <div class="mb-3">
+                <label for="genre" class="form-label">الجنس</label>
+                <select class="form-select" id="genre" name="genre" required>
+                  <option value="Homme">رجل</option>
+                  <option value="Femme">امرأة</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="telephone" class="form-label">الهاتف</label>
+                <input type="tel" class="form-control" id="telephone" name="telephone" required pattern="^(0[5-7][0-9]{8})$" title="Numéro de téléphone valide.">
+              </div>
+              <div class="mb-3">
+                <label for="lieu_travail" class="form-label">مكان العمل</label>
+                <input type="text" class="form-control" id="lieu_travail" name="lieu_travail" required>
+              </div>
+              <div class="mb-3">
+                <label for="niveau_academique" class="form-label">المستوى الأكاديمي</label>
+                <input type="text" class="form-control" id="niveau_academique" name="niveau_academique" required>
+              </div>
+              <div class="mb-3">
+                <label for="carte_adhesion" class="form-label">رقم بطاقة الانخراط</label>
+                <input type="text" class="form-control" id="carte_adhesion" name="carte_adhesion" required pattern="^[A-Z0-9]{3,10}$" title="Code alphanumérique entre 3 et 10 caractères.">
+              </div>
+              <div class="mb-3">
+                <label for="entite_id" class="form-label">المعرف الكيان</label>
+                <select class="form-select" id="entite_id" name="entite_id" required>
+                  <option value="">-- اختر الكيان --</option>
+                  <option value="1">المكتب التنفيذي</option>
+                  <option value="2">المجلس الإداري</option>
+                  <option value="3">الجمع العام</option>
+                  <option value="4">لجنة المراقبة</option>
+                  <option value="5">الثلث الخارج</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="role_id" class="form-label">الدور</label>
+                <select class="form-select" id="role_id" name="role_id" required>
+                  <option value="">-- اختر الدور --</option>
+                  <option value="1">Président</option>
+                  <option value="2">Secrétaire</option>
+                  <option value="3">Trésorier</option>
+                  <option value="4">Membre</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">إضافة</button>
+            </form>          
+          </div>
+        </div>
+      </div>
+    </div>    
+  </main>
+
+  <!-- Menu de navigation -->
+  <nav class="navbar navbar-expand bg-white fixed-bottom shadow">
+    <div class="container-fluid justify-content-around">
+      <a class="nav-link text-center text-primary" href="#" onclick="showSection('welcome-section')">
+        <i class="bi bi-house-fill"></i><br>الرئيسية
+      </a>
+      <a class="nav-link text-center text-primary" href="#" onclick="showSection('membres-section')">
+        <i class="bi bi-people-fill"></i><br>الأعضاء
+      </a>
+      <a class="nav-link text-center text-primary" href="#" onclick="showSection('entites-section')">
+        <i class="bi bi-building"></i><br>الكيانات
+      </a>
+      <a class="nav-link text-center text-primary" href="#" onclick="showSection('cartes-section')">
+        <i class="bi bi-card-list"></i><br>البطاقات
+      </a>
+    </div>
+  </nav>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
