@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = 'https://<votre-nom-domaine>.onrender.com'; 
 
 // Fonction pour afficher uniquement la section sélectionnée
 function showSection(sectionId) {
