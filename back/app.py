@@ -7,9 +7,9 @@ CORS(app)  # Pour permettre les requêtes cross-origin
 
 # Configuration de la base de données
 db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'root',  # Remplacez par votre mot de passe MySQL
+    'host': 'dpg-ctm5t2a3esus739ncb1g-a',
+    'user': 'solidarite_user',
+    'password': 'i8fkp1uF6C8XUbnWLDcoVT637n1wS5kn',  # Remplacez par votre mot de passe MySQL
     'database': 'solidarite'
 }
 
