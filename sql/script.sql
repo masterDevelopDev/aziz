@@ -1,29 +1,25 @@
-DROP DATABASE IF EXISTS solidarite;
-CREATE DATABASE solidarite;
-USE solidarite;
-
 -- Table Solidarité
 CREATE TABLE solidarite (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Utilisez INT pour clé primaire
+    id SERIAL PRIMARY KEY, -- Utilisez SERIAL pour clé primaire
     nom VARCHAR(255) NOT NULL
 );
 
 -- Table Entités de Solidarité
 CREATE TABLE entites_solidarite (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Même type que la clé primaire
+    id SERIAL PRIMARY KEY, -- Même type que la clé primaire
     nom VARCHAR(255) NOT NULL, -- Exemple: "المكتب التنفيذي"
     solidarite_id INT REFERENCES solidarite(id) ON DELETE CASCADE -- Type compatible
 );
 
 -- Table des Rôles dans la Solidarité
 CREATE TABLE roles (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Utilisez INT pour clé primaire
+    id SERIAL PRIMARY KEY, -- Utilisez SERIAL pour clé primaire
     nom VARCHAR(255) NOT NULL -- Exemple: "Président", "Secrétaire"
 );
 
 -- Table des Membres des Entités
 CREATE TABLE membres_entites (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Utilisez INT pour clé primaire
+    id SERIAL PRIMARY KEY, -- Utilisez SERIAL pour clé primaire
     nom VARCHAR(255) NOT NULL,
     profession VARCHAR(255), -- Profession dans la vie courante
     age INT,
@@ -38,7 +34,7 @@ CREATE TABLE membres_entites (
 
 -- Table des Cartes d'Adhésion
 CREATE TABLE cartes_adhesion (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Utilisez INT pour clé primaire
+    id SERIAL PRIMARY KEY, -- Utilisez SERIAL pour clé primaire
     membre_id INT REFERENCES membres_entites(id) ON DELETE CASCADE,
     date_delivrance DATE NOT NULL,
     statut VARCHAR(50) NOT NULL, -- Délivrée, Payée, Non payée, En suspens
@@ -48,7 +44,7 @@ CREATE TABLE cartes_adhesion (
 
 -- Table de l'Historique des Participations
 CREATE TABLE historique_participations (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Utilisez INT pour clé primaire
+    id SERIAL PRIMARY KEY, -- Utilisez SERIAL pour clé primaire
     membre_id INT REFERENCES membres_entites(id) ON DELETE CASCADE,
     entite_id INT REFERENCES entites_solidarite(id) ON DELETE CASCADE,
     role_id INT REFERENCES roles(id) ON DELETE SET NULL, -- Type compatible
@@ -57,6 +53,7 @@ CREATE TABLE historique_participations (
     commentaire TEXT
 );
 
+-- Insérer des données initiales
 INSERT INTO solidarite (nom) VALUES
 ('Solidarité nationale');
 
