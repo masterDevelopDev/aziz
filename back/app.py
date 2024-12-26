@@ -16,6 +16,15 @@ db_config = {
     'port': 5432
 }
 
+# Configuration de la base de données
+#db_config = {
+#    'host': '127.0.0.1',
+#    'database': 'solidarite',
+#    'user': 'solidarite_user',
+#    'password': 'i8fkp1uF6C8XUbnWLDcoVT637n1wS5kn',
+#    'port': 5432
+#}
+
 # Connexion à la base de données
 def get_db_connection():
     conn = psycopg2.connect(
@@ -73,6 +82,37 @@ def get_membres():
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM membres_entites")
+        membres = cursor.fetchall()
+        conn.close()
+        return jsonify(membres)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# Route pour rechercher des membres selon des critères
+@app.route('/membres/recherche', methods=['POST'])
+def search_membres():
+    try:
+        data = request.json
+        genre = data.get('genre')
+        lieu_travail = data.get('lieu_travail')
+        age = data.get('age')
+
+        query = "SELECT * FROM membres_entites WHERE 1=1"
+        params = []
+
+        if genre:
+            query += " AND genre = %s"
+            params.append(genre)
+        if lieu_travail:
+            query += " AND lieu_travail ILIKE %s"
+            params.append(f"%{lieu_travail}%")
+        if age:
+            query += " AND age = %s"
+            params.append(age)
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(query, tuple(params))
         membres = cursor.fetchall()
         conn.close()
         return jsonify(membres)

@@ -197,6 +197,11 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
+button.btn-primary,
+button.btn-success {
+  margin-right: 10px;
+}
+
 /* Media Query pour appareils larges */
 @media (min-width: 768px) {
   nav.fixed-bottom .nav-link {

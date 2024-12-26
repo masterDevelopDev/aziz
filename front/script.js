@@ -1,4 +1,5 @@
 const API_BASE_URL = 'https://aziz-icxm.onrender.com'; 
+//const API_BASE_URL = "http://127.0.0.1:5000";
 
 // Fonction pour afficher uniquement la section sélectionnée
 function showSection(sectionId) {
@@ -140,6 +141,24 @@ document.addEventListener("DOMContentLoaded", () => {
       modalElement.classList.add('d-none');
     });
   }
+
+  // Initialisation de la modale de recherche
+  const searchMembreButton = document.querySelector('[data-bs-target="#searchMembreModal"]');
+  const searchModalElement = document.getElementById('searchMembreModal');
+
+  if (searchMembreButton && searchModalElement) {
+    const searchModalInstance = new bootstrap.Modal(searchModalElement);
+
+    searchMembreButton.addEventListener('click', () => {
+      searchModalElement.classList.remove('d-none');
+      searchModalInstance.show();
+    });
+
+    searchModalElement.addEventListener('hidden.bs.modal', () => {
+      searchModalElement.classList.add('d-none');
+    });
+  }
+
 });
 
 // Ajouter un membre
@@ -177,4 +196,65 @@ if (addMembreForm) {
   });
 } else {
   console.error("Formulaire 'addMembreForm' introuvable.");
+}
+
+// Fonction pour rechercher des membres selon des critères
+function searchMembres(criteria) {
+  fetch(`${API_BASE_URL}/membres/recherche`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(criteria),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to search membres: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((membres) => {
+      const membresList = document.getElementById("membres-list");
+      if (membresList) {
+        if (membres.length === 0) {
+          membresList.innerHTML = `<p class="text-muted text-center">Aucun membre trouvé pour les critères donnés.</p>`;
+        } else {
+          membresList.innerHTML = membres.map((membre) => `
+            <div class="col-md-4">
+              <div class="card shadow">
+                <div class="card-body">
+                  <h5 class="card-title">${membre.nom}</h5>
+                  <p class="card-text">${membre.profession}</p>
+                  <p class="text-muted">Âge : ${membre.age}</p>
+                </div>
+              </div>
+            </div>
+          `).join("");
+        }
+      }
+    })
+    .catch((err) => console.error("Erreur lors de la recherche des membres :", err));
+}
+
+// Gestion du formulaire de recherche
+const searchMembreForm = document.getElementById("searchMembreForm");
+if (searchMembreForm) {
+  searchMembreForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const criteria = {
+      genre: document.getElementById("searchGenre").value,
+      lieu_travail: document.getElementById("searchLieuTravail").value,
+      age: document.getElementById("searchAge").value,
+    };
+
+    searchMembres(criteria);
+
+    // Fermer la modale après la soumission
+    const modalElement = document.getElementById("searchMembreModal");
+    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (modalInstance) {
+      modalInstance.hide();
+    }
+  });
+} else {
+  console.error("Formulaire 'searchMembreForm' introuvable.");
 }
